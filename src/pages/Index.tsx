@@ -1,13 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import Navbar from '@/components/Navbar';
+import MoviesList from '@/components/MoviesList';
+import ShowtimeSelector from '@/components/ShowtimeSelector';
+import SeatSelector from '@/components/SeatSelector';
+import Checkout from '@/components/Checkout';
+import { BookingProvider, useBooking } from '@/context/BookingContext';
+
+const BookingSteps = () => {
+  const { bookingStep } = useBooking();
+  
+  return (
+    <>
+      {bookingStep === 1 && <MoviesList />}
+      {bookingStep === 2 && <ShowtimeSelector />}
+      {bookingStep === 3 && <SeatSelector />}
+      {bookingStep === 4 && <Checkout />}
+    </>
+  );
+};
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <BookingProvider>
+      <div className="min-h-screen bg-cinema-darkbg">
+        <Navbar />
+        <BookingSteps />
       </div>
-    </div>
+    </BookingProvider>
   );
 };
 
